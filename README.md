@@ -21,3 +21,9 @@ cd symmetry
 sudo chmod +x # only necessary if you get a permission denied response when trying to run the script
 ./init.sh
 ```
+
+Disclaimer
+----------
+I am by no means a bash expert.  I do however pride myself on best practices which means I spent more time researching best practices in bash vs actually writing the script itself.  With that being said, PLEASE share any knowledge of things that could be done more efficiently, "got yas" or anything that is just straigh up bad.
+
+Thank you!
