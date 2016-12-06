@@ -34,11 +34,10 @@ symmetry_err() {
 #######################################
 backup_symmetry() {
     symmetry_echo "Creating ${SYMMETRY_BACKUP_DIR} to backup all dotfiles from ${SYMMETRY_HOME_DIR} found in ./dotfiles ..."
-    symmetry_echo
 
     mkdir -p ${SYMMETRY_BACKUP_DIR}
 
-    for FILE in SYMMETRY_DOTFILES_DIR/*; do
+    for FILE in dotfiles/*; do
         # we need to strip the "dotfiles/" from file so it just returns the filename
         local STRIPPED_FILE=${FILE##*/}
 
@@ -52,6 +51,7 @@ backup_symmetry() {
     done
 
     symmetry_echo "Backup completed!"
+    symmetry_echo
 }
 
 #######################################
@@ -67,7 +67,6 @@ create_symbolic_links() {
     local FILES_TO_SKIP=$1
 
     symmetry_echo "Creating symbolic links for all files found in the ./dotfiles directory..."
-    symmetry_echo
 
     for FILE in dotfiles/*; do
         local STRIPPED_FILE=${FILE##*/}
@@ -75,14 +74,30 @@ create_symbolic_links() {
         if [[ ${FILES_TO_SKIP[*]} =~ ${STRIPPED_FILE} ]]; then
             symmetry_echo "Skipping ${STRIPPED_FILE}..."
         else
-            if [[ ! -f ${SYMMETRY_HOME_DIR}/.${STRIPPED_FILE} ]]; then
+            if [[ -L ${SYMMETRY_HOME_DIR}/.${STRIPPED_FILE} ]]; then
+                if [[ $(readlink ${SYMMETRY_HOME_DIR}/.${STRIPPED_FILE}) = ${SYMMETRY_DOTFILES_DIR}/${STRIPPED_FILE} ]]; then
+                    symmetry_echo "${STRIPPED_FILE} is already linked correctly.  Skipping..."
+                else
+                    symmetry_err "${STRIPPED_FILE} is already a symbolic link but not to Symmetry.  Skipping..."
+                fi
+            elif [[ ! -f ${SYMMETRY_HOME_DIR}/.${STRIPPED_FILE} ]]; then
                 symmetry_echo "Linking ${STRIPPED_FILE}..."
                 ln -s ${SYMMETRY_DIR}/${FILE} ${SYMMETRY_HOME_DIR}/.${STRIPPED_FILE}
             else
-                symmetry_echo "Symbolic link already exists for ${SYMMETRY_DIR}/${FILE}.  Skipping...\n"
+                read -p "${SYMMETRY_HOME_DIR}/.${STRIPPED_FILE} exists and was not backed up.  Would you like to overwrite this file with ${SYMMETRY_DOTFILES_DIR}/${STRIPPED_FILE}? [y/N] " OVERWRITE_DOTFILE
+
+                if [[ $(echo "${OVERWRITE_DOTFILE}" | tr '[:upper:]' '[:lower:]') = "y" ]]; then
+                    symmetry_echo "Overwriting..."
+                    rm ${SYMMETRY_HOME_DIR}/.${STRIPPED_FILE}
+                    ln -s ${SYMMETRY_DIR}/${FILE} ${SYMMETRY_HOME_DIR}/.${STRIPPED_FILE}
+                else
+                    symmetry_echo "Skipping..."
+                fi
             fi
         fi
     done
+
+    return 0
 }
 
 COMMAND="${1-}"
@@ -121,12 +136,19 @@ case ${COMMAND} in
             symmetry_echo
 
             create_symbolic_links ${SYMMETRY_SKIP_FILES}
+
+            exit 0
         fi
 
         if backup_symmetry && create_symbolic_links ${SYMMETRY_SKIP_FILES} ; then
+            symmetry_echo
             symmetry_echo "Completed Succesfully!"
+
+            exit 0
         else
             symmetry_echo "Looks like there was an error running sync!"
+
+            exit 1
         fi
 
     ;;
