@@ -1,2 +1,3 @@
+# Enables NVM in terminal
 export NVM_DIR="/Users/z001q83/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

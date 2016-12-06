@@ -1,21 +1,20 @@
+# Source the bashrc dotfile (mac os related)
 if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 if [ -f ~/.git-completion.bash ]; then . ~/.git-completion.bash; fi 
 
+# Colors for CLI/LS
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+# This function adds the git branch to the prompt string in terminal
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
+# This allows me to type in terminal "subl filename.php" and it will open that file in sublime
 alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
-alias ls='ls -GFh'
-alias ll='ls -l'
-alias python='python3'
-alias pp='cd ~/Target/page-planner'
-alias tn='cd ~/tn'
-alias sym='cd ~/tn/symmetry'
 
+# Makes all the things pretty.
 function prompt {
   local BLACK="\[\033[0;30m\]"
   local BLACKBOLD="\[\033[1;30m\]"
@@ -35,12 +34,12 @@ function prompt {
   local WHITEBOLD="\[\033[1;37m\]"
   local RESETCOLOR="\[\e[00m\]"
 
+  # Format and color the prompt string: "user @ ~/tn/symmetry (branch-name) $"
   export PS1="$RED\u $PURPLE@ $GREEN\w$RESETCOLOR$GREENBOLD\$(parse_git_branch) $ $RESETCOLOR"
 }
 
+# Build the prompt string
 prompt
 
-export PATH=/usr/local/php5-5.6.19-20160310-141555/bin:$PATH
+# An example of a path export for Composer
 export PATH=~/.composer/vendor/bin:$PATH
-export PATH=~/pear/bin/pear:$PATH
-
