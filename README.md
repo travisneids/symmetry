@@ -13,14 +13,18 @@ as a reference to know which files to attempt to back up. and then finally creat
 to each of those files to your '~/' (changeable from within the script).
 
 How do you install it?
-------------
-
+----------------------
 ``` bash
 git clone git@github.com:travisneids/symmetry.git
 cd symmetry
 sudo chmod +x # only necessary if you get a permission denied response when trying to run the script
 ./init.sh
 ```
+
+Which Branch?
+-------------
+Master includes commented dotfiles which has been stripped of redundant code to make it more
+digestible.  You can still access my personal dotfiles on the Neidz branch.
 
 Disclaimer
 ----------
