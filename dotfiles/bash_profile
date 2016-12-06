@@ -12,6 +12,9 @@ alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias ls='ls -GFh'
 alias ll='ls -l'
 alias python='python3'
+alias pp='cd ~/Target/page-planner'
+alias tn='cd ~/tn'
+alias sym='cd ~/tn/symmetry'
 
 function prompt {
   local BLACK="\[\033[0;30m\]"
@@ -39,5 +42,5 @@ prompt
 
 export PATH=/usr/local/php5-5.6.19-20160310-141555/bin:$PATH
 export PATH=~/.composer/vendor/bin:$PATH
-export PATH=/Users/z001q83/pear/bin/pear:$PATH
+export PATH=~/pear/bin/pear:$PATH
 
