@@ -18,7 +18,27 @@ How do you install it?
 git clone git@github.com:travisneids/symmetry.git
 cd symmetry
 sudo chmod +x # only necessary if you get a permission denied response when trying to run the script
-./init.sh
+./symmetry.sh sync
+```
+
+Usage
+-----
+There is not much to Symmetry however I did add a few flags that I felt could be necessary.
+
+``` bash
+Symmetry
+This script will install Symmetry by creating symbolic links from the dotfiles directory of this repo to your home directory
+
+Usage:
+  ./symmetry.sh -h, --help                  Show this message
+  ./symmetry.sh sync                        Backup and sync all files in dotfiles directory to your /Users/z001q83
+    --no-backup                              When syncing, ignore backup of non-symbolically linked files in /Users/z001q83
+    --skip-files=<filename1,filename2>      When syncing, skip provided file(s) from dotfiles directory (should match filename without .)
+```
+
+Example use with `--skip-files` flag:
+``` bash
+./symmetry.sh sync --skip-files=bashrc,bash_profile
 ```
 
 Which Branch?
