@@ -15,6 +15,9 @@ alias python='python3'
 alias pp='cd ~/Target/page-planner'
 alias tn='cd ~/tn'
 alias sym='cd ~/tn/symmetry'
+alias ppbuild='pp && ./docker/cli gulp assets:assemble'
+alias ppdebug='pp && ./docker/xdebug-if-alias.sh'
+
 
 function prompt {
   local BLACK="\[\033[0;30m\]"
