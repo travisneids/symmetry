@@ -8,16 +8,33 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+# Linux
 alias ls='ls -GFh'
 alias ll='ls -l'
-alias python='python3'
+
+# Applications
+alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+
+# Project Folders
 alias pp='cd ~/Target/page-planner'
+alias ppme='cd ~/Target/marketing-email'
+alias ssips='docker inspect --format="{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $(docker ps -aq)'
 alias tn='cd ~/tn'
 alias sym='cd ~/tn/symmetry'
+alias pd='cd ~/tn/sites/propellant-digital'
+alias homestead='cd ~/tn/homestead-docker'
+alias hsup='homestead && docker-compose up -d'
+alias slingshotup='pp && ./docker/up -d && ppme && ./docker/up -d && pp'
+
+# Page Planner Docker
 alias ppbuild='pp && ./docker/cli gulp assets:assemble'
 alias ppdebug='pp && ./docker/xdebug-if-alias.sh'
 
+# Homestead Docker
+alias hssh='ssh -p 2222 homestead@localhost'
+
+# Docker
+alias dockerdown-all='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
 
 function prompt {
   local BLACK="\[\033[0;30m\]"

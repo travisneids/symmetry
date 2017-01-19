@@ -1,0 +1,63 @@
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+
+# Monitor Aliases
+alias   mon-laptop          1920x1200
+alias   mon-thunderbolt     2560x1440
+alias   mon-dell            1080x1920
+
+# Position Aliases
+alias   full-laptop         move    screenOriginX;screenOriginY             screenSizeX;screenSizeY     ${mon-laptop}
+alias   full-thunder        move    screenOriginX;screenOriginY             screenSizeX;screenSizeY     ${mon-thunderbolt}
+alias   full-dell           move    screenOriginX;screenOriginY             screenSizeX;screenSizeY     ${mon-dell}
+
+alias   vtop-half-laptop    move    screenOriginX;screenOriginY             screenSizeX;screenSizeY/2   ${mon-laptop}
+alias   vtop-half-thunder   move    screenOriginX;screenOriginY             screenSizeX;screenSizeY/2   ${mon-thunderbolt}
+alias   vtop-half-dell      move    screenOriginX;screenOriginY             screenSizeX;screenSizeY/2   ${mon-dell}
+
+alias   vbot-half-laptop    move    screenOriginX;screenOriginY+600         screenSizeX;screenSizeY/2   ${mon-laptop}
+alias   vbot-half-thunder   move    screenOriginX;screenOriginY+720         screenSizeX;screenSizeY/2   ${mon-thunderbolt}
+alias   vbot-half-dell      move    screenOriginX;screenOriginY+960         screenSizeX;screenSizeY/2   ${mon-dell}
+
+alias   yleft-half-laptop   move    screenOriginX;screenOriginY             screenSizeX/2;screenSizeY   ${mon-laptop}
+alias   yright-half-laptop  move    screenOriginX+960;screenOriginY         screenSizeX/2;screenSizeY   ${mon-laptop}
+
+alias   3-lync              move    screenOriginX+540;screenOriginY+960     540;960                     ${mon-dell}
+
+# 1 Monitor layout
+layout  1monitor   'Google Chrome'                                 ${full-laptop}
+layout  1monitor   'iTerm2'                                        ${full-laptop}
+layout  1monitor   'Microsoft Outlook':TITLE_ORDER_REGEX=^Inbox    ${full-laptop}
+layout  1monitor   'PhpStorm'                                      ${full-laptop}
+layout  1monitor   'Postman'                                       ${full-laptop}
+layout  1monitor   'Spotify'                                       ${full-laptop}
+layout  1monitor   'Slack'                                         ${yleft-half-laptop}
+layout  1monitor   'HipChat'                                       ${yright-half-laptop}
+
+# 3 Monitor layout
+# Laptop Monitor
+layout  3monitors   'Google Chrome'                                 ${full-laptop}
+layout  3monitors   'iTerm2'                                        ${full-laptop}
+layout  3monitors   'Microsoft Outlook':TITLE_ORDER_REGEX=^Inbox    ${full-laptop}
+
+# Thunderbolt Monitor
+layout  3monitors   'PhpStorm'                                      ${full-thunder}
+layout  3monitors   'Postman'                                       ${full-thunder}
+
+# Dell Monitor
+layout  3monitors   'Slack'                                         ${vtop-half-dell}
+layout  3monitors   'HipChat'                                       ${vbot-half-dell}
+layout  3monitors   'Microsoft Lync'                                ${3-lync}
+layout  3monitors   'Spotify'                                       ${full-dell}
+
+# Default Layouts
+default 3monitors resolutions:${mon-laptop};${mon-thunderbolt};${mon-dell}
+default 1monitor  resolutions:${mon-laptop};
+
+# Layout Bindings
+bind padEnter:ctrl layout 3monitors
+bind esc:ctrl;alt  layout 1monitor
+
+# Window Hints
+bind esc:cmd hint
