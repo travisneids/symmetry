@@ -1,6 +1,9 @@
 [ -f ~/.bashrc ] && . ~/.bashrc
 [ -f ~/.bash_functions ] && . ~/.bash_functions
 [ -f ~/.target_proxy_functions ] && . ~/.target_proxy_functions
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
@@ -78,11 +81,6 @@ prompt
 export PATH=/usr/local/php5-5.6.19-20160310-141555/bin:$PATH
 export PATH=~/.composer/vendor/bin:$PATH
 export PATH=~/pear/bin/pear:$PATH
-
-# Git Bash Completion
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
