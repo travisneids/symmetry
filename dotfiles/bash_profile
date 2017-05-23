@@ -1,12 +1,9 @@
-if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
-if [ -f ~/.git-completion.bash ]; then . ~/.git-completion.bash; fi 
+[ -f ~/.bashrc ] && . ~/.bashrc
+[ -f ~/.bash_functions ] && . ~/.bash_functions
+[ -f ~/.target_proxy_functions ] && . ~/.target_proxy_functions
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
 
 # Linux
 alias ls='ls -GFh'
@@ -14,27 +11,45 @@ alias ll='ls -l'
 
 # Applications
 alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+alias idea='/usr/local/bin/idea'
+
+# Utilities
+alias ptfind='sudo find . -iname '
 
 # Project Folders
+alias markups='cd ~/tn/markups'
+alias pfd='cd ~/tn/sites/press-feedback-dashboard'
+alias pfa='cd ~/tn/sites/press-feedback-api'
 alias pp='cd ~/Target/page-planner'
+alias ppauto='cd ~/Target/automation'
 alias ppme='cd ~/Target/marketing-email'
 alias ssips='docker inspect --format="{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $(docker ps -aq)'
 alias tn='cd ~/tn'
 alias sym='cd ~/tn/symmetry'
-alias pd='cd ~/tn/sites/propellant-digital'
-alias homestead='cd ~/tn/homestead-docker'
-alias hsup='homestead && docker-compose up -d'
-alias slingshotup='pp && ./docker/up -d && ppme && ./docker/up -d && pp'
+
+# Laradock
+alias ld-db='docker exec -it laradock_mysql_1 bash'
+alias ld-ws='docker exec -it laradock_workspace_1 bash'
+alias cont-id='docker inspect --format="{{.Name}}: {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $(docker ps -aq)'
 
 # Page Planner Docker
 alias ppbuild='pp && ./docker/cli gulp assets:assemble'
 alias ppdebug='pp && ./docker/xdebug-if-alias.sh'
-
-# Homestead Docker
-alias hssh='ssh -p 2222 homestead@localhost'
+alias pppage='ppauto && cd functional/utilities && php getTestPage.php'
 
 # Docker
 alias dockerdown-all='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
+
+# Ionic
+alias sim-iphone-7='ionic emulate ios -c -l --target="iPhone-7, 10.3"'
+
+# cleanLaradockFunction ~/.bash_functions
+alias cleanLaradock=cleanLaradockFunction
+
+function installAirbnb {
+	export PKG=eslint-config-airbnb
+	yarn info "$PKG@latest" peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g' | xargs yarn add --dev "$PKG@latest"
+}
 
 function prompt {
   local BLACK="\[\033[0;30m\]"
@@ -63,3 +78,13 @@ prompt
 export PATH=/usr/local/php5-5.6.19-20160310-141555/bin:$PATH
 export PATH=~/.composer/vendor/bin:$PATH
 export PATH=~/pear/bin/pear:$PATH
+
+# Git Bash Completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

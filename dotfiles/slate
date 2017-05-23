@@ -6,58 +6,102 @@ config resizePercentOf screenSize
 alias   mon-laptop          1920x1200
 alias   mon-thunderbolt     2560x1440
 alias   mon-dell            1080x1920
+alias   mon-1               0
+alias   mon-2               1
+alias   mon-3               3
 
 # Position Aliases
 alias   full-laptop         move    screenOriginX;screenOriginY             screenSizeX;screenSizeY     ${mon-laptop}
 alias   full-thunder        move    screenOriginX;screenOriginY             screenSizeX;screenSizeY     ${mon-thunderbolt}
 alias   full-dell           move    screenOriginX;screenOriginY             screenSizeX;screenSizeY     ${mon-dell}
+alias   full-mon-1           move    screenOriginX;screenOriginY             screenSizeX;screenSizeY    ${mon-1}
+alias   full-mon-2           move    screenOriginX;screenOriginY             screenSizeX;screenSizeY    ${mon-2}
 
 alias   vtop-half-laptop    move    screenOriginX;screenOriginY             screenSizeX;screenSizeY/2   ${mon-laptop}
 alias   vtop-half-thunder   move    screenOriginX;screenOriginY             screenSizeX;screenSizeY/2   ${mon-thunderbolt}
 alias   vtop-half-dell      move    screenOriginX;screenOriginY             screenSizeX;screenSizeY/2   ${mon-dell}
+alias   vtop-half-mon-1      move    screenOriginX;screenOriginY             screenSizeX;screenSizeY/2   ${mon-1}
+alias   vtop-half-mon-2      move    screenOriginX;screenOriginY             screenSizeX;screenSizeY/2   ${mon-2}
 
 alias   vbot-half-laptop    move    screenOriginX;screenOriginY+600         screenSizeX;screenSizeY/2   ${mon-laptop}
 alias   vbot-half-thunder   move    screenOriginX;screenOriginY+720         screenSizeX;screenSizeY/2   ${mon-thunderbolt}
-alias   vbot-half-dell      move    screenOriginX;screenOriginY+960         screenSizeX;screenSizeY/2   ${mon-dell}
+alias   vbot-half-dell      move    screenOriginX;screenOriginY+950         screenSizeX;screenSizeY/2   ${mon-dell}
 
 alias   yleft-half-laptop   move    screenOriginX;screenOriginY             screenSizeX/2;screenSizeY   ${mon-laptop}
 alias   yright-half-laptop  move    screenOriginX+960;screenOriginY         screenSizeX/2;screenSizeY   ${mon-laptop}
+alias   yleft-half-mon-1     move    screenOriginX;screenOriginY             screenSizeX/2;screenSizeY   ${mon-1}
+alias   yright-half-mon-1    move    screenOriginX+960;screenOriginY         screenSizeX/2;screenSizeY   ${mon-1}
+alias   yleft-half-mon-2     move    screenOriginX;screenOriginY             screenSizeX/2;screenSizeY   ${mon-2}
+alias   yright-half-mon-2    move    screenOriginX+960;screenOriginY         screenSizeX/2;screenSizeY   ${mon-2}
 
-alias   3-lync              move    screenOriginX+540;screenOriginY+960     540;960                     ${mon-dell}
+alias   3-lync              move    screenOriginX+540;screenOriginY+60      540;960                     ${mon-dell}
 
-# 1 Monitor layout
-layout  1monitor   'Google Chrome'                                 ${full-laptop}
-layout  1monitor   'iTerm2'                                        ${full-laptop}
-layout  1monitor   'Microsoft Outlook':TITLE_ORDER_REGEX=^Inbox    ${full-laptop}
-layout  1monitor   'PhpStorm'                                      ${full-laptop}
-layout  1monitor   'Postman'                                       ${full-laptop}
-layout  1monitor   'Spotify'                                       ${full-laptop}
-layout  1monitor   'Slack'                                         ${yleft-half-laptop}
-layout  1monitor   'HipChat'                                       ${yright-half-laptop}
+### Laptop layout
+layout  laptop   'Google Chrome'                                      ${full-laptop}
+layout  laptop   'iTerm2'                                             ${full-laptop}
+layout  laptop   'Microsoft Outlook':TITLE_ORDER_REGEX=^Inbox         ${full-laptop}
+layout  laptop   'IntelliJ IDEA'                                      ${full-laptop}
+layout  laptop   'Insomnia'                                           ${full-laptop}
+layout  laptop   'Spotify'                                            ${full-laptop}
+layout  laptop   'Slack'                                              ${full-laptop}
+layout  laptop   'HipChat'                                            ${yright-half-laptop}
+layout  laptop   'Microsoft Lync'                                     ${yleft-half-laptop}
 
-# 3 Monitor layout
+### 1 Monitor layout
+layout  1monitor   'Google Chrome'                                      ${full-mon-1}
+layout  1monitor   'iTerm2'                                             ${full-mon-1}
+layout  1monitor   'Microsoft Outlook':TITLE_ORDER_REGEX=^Inbox         ${full-mon-1}
+layout  1monitor   'IntelliJ IDEA'                                      ${full-mon-1}
+layout  1monitor   'Insomnia'                                           ${full-mon-1}
+layout  1monitor   'Spotify'                                            ${full-mon-1}
+layout  1monitor   'Slack'                                              ${full-mon-1}
+layout  1monitor   'HipChat'                                            ${yright-half-mon-1}
+layout  1monitor   'Microsoft Lync'                                     ${yleft-half-mon-1}
+
+### Work 3 Monitor layout
 # Laptop Monitor
-layout  3monitors   'Google Chrome'                                 ${full-laptop}
-layout  3monitors   'iTerm2'                                        ${full-laptop}
-layout  3monitors   'Microsoft Outlook':TITLE_ORDER_REGEX=^Inbox    ${full-laptop}
+layout  3monitors   'Google Chrome'                                     ${full-laptop}
+layout  3monitors   'iTerm2'                                            ${full-laptop}
+layout  3monitors   'Microsoft Outlook':TITLE_ORDER_REGEX=^Inbox        ${full-laptop}
+layout  3monitors   'Insomnia'                                          ${full-laptop}
 
 # Thunderbolt Monitor
-layout  3monitors   'PhpStorm'                                      ${full-thunder}
-layout  3monitors   'Postman'                                       ${full-thunder}
+layout  3monitors   'IntelliJ IDEA'                                     ${full-thunder}
 
 # Dell Monitor
-layout  3monitors   'Slack'                                         ${vtop-half-dell}
-layout  3monitors   'HipChat'                                       ${vbot-half-dell}
-layout  3monitors   'Microsoft Lync'                                ${3-lync}
-layout  3monitors   'Spotify'                                       ${full-dell}
+layout  3monitors   'Slack'                                             ${vtop-half-dell}
+layout  3monitors   'HipChat'                                           ${vbot-half-dell}
+layout  3monitors   'Microsoft Lync'                                    ${3-lync}
+layout  3monitors   'Spotify'                                           ${full-dell}
+
+### Home 2 Monitor Layout
+# Acer Monitor (right)
+layout  home2monitors   'Google Chrome'                                 ${full-mon-2}
+layout  home2monitors   'iTerm2'                                        ${full-mon-2}
+layout  home2monitors   'Microsoft Outlook':TITLE_ORDER_REGEX=^Inbox    ${full-mon-2}
+layout  home2monitors   'Insomnia'                                      ${full-mon-2}
+layout  home2monitors   'Slack'                                         ${yleft-half-mon-2}
+layout  home2monitors   'HipChat'                                       ${yright-half-mon-2}
+layout  home2monitors   'Microsoft Lync'                                ${yright-half-mon-2}
+layout  home2monitors   'Spotify'                                       ${full-mon-2}
+
+# Asus Monitor (main)
+layout  home2monitors   'IntelliJ IDEA'                                 ${full-mon-1}
+
 
 # Default Layouts
 default 3monitors resolutions:${mon-laptop};${mon-thunderbolt};${mon-dell}
 default 1monitor  resolutions:${mon-laptop};
+default home2monitors resolutions:1920x1080;1920x1080
 
 # Layout Bindings
-bind padEnter:ctrl layout 3monitors
-bind esc:ctrl;alt  layout 1monitor
+bind padEnter:ctrl      layout 3monitors
+bind pad0:ctrl          layout home2monitors
+bind pad1:ctrl          layout 1monitor
+bind esc:ctrl;alt       layout laptop
+bind pad1:ctrl;alt      throw 0 resize
+bind pad2:ctrl;alt      throw 1 resize
+bind pad3:ctrl;alt      throw 2 resize
 
 # Window Hints
 bind esc:cmd hint
